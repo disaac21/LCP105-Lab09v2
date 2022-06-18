@@ -325,17 +325,56 @@ public class Frame extends javax.swing.JFrame {
     }//GEN-LAST:event_ArchivosActionPerformed
 
     private void CrearCarpetaButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CrearCarpetaButtonMouseClicked
-        String Link = "dive.google.com/" + NombreCarpetaTextField.getText() + "/";
-        int cont = 0;
-        while (cont <= 5) {
-            int numero = 65 + random.nextInt(57);
-            Link = Link + (char)numero;
-            cont++;
+        try {
+            //
+            String nombre = NombreCarpetaTextField.getText();
+            String link = CrearLink();
+            
+            Carpeta carpeta = new Carpeta(nombre, link);
+            
+            AgregarBaseCarpeta(carpeta);
+            
+//        String Link = "dive.google.com/" + NombreCarpetaTextField.getText() + "/";
+//        int cont = 0;
+//        while (cont <= 5) {
+//            int numero = 65 + random.nextInt(57);
+//            Link = Link + (char)numero;
+//            cont++;
+//        }
+//        System.out.println(Link);
+//        Carpeta file = new Carpeta(NombreCarpetaTextField.getText(), Link, Carpetas, Archivos);
+        } catch (SQLException ex) {
+            Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(Link);
-        //        Carpeta file = new Carpeta(NombreCarpetaTextField.getText(), Link, Carpetas, Archivos);
     }//GEN-LAST:event_CrearCarpetaButtonMouseClicked
 
+    
+    public void AgregarBaseCarpeta(Carpeta c) throws SQLException{
+        
+        //En la tabla de carpetas se estará
+        //almacenando: Nombre de carpeta, cantidad de archivos dentro de carpeta y fecha de creación.
+        
+
+        String base = "./Base.accdb";
+        Dba db = new Dba(base);
+        db.conectar();
+        
+        String nombre = c.getNombre();
+        int cant = c.getArchivos().size();
+        String fecha = c.getFecha().toString();
+        
+        
+        
+        db.query.execute("INSERT INTO Archivos"
+                + " (Nombre,Cantidad_de_archivos,Fecha_de_creacion)"
+                + " VALUES ('" + nombre + "', '"  + cant + "', '" + fecha + "')");
+        //+ " VALUES ('" + c + "', '" + n + "')");
+        db.commit();
+        System.out.println("fin");
+        db.desconectar();
+    }
+    
+    
     private void CrearArchivoButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CrearArchivoButtonMouseClicked
         try {
             String nombre;

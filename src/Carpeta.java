@@ -7,8 +7,8 @@ public class Carpeta {
     //Tendrán un nombre, un link, una lista de archivos y carpetas
     public String Nombre;
     public String Link;
-    public ArrayList <Carpeta> Carpetas;
-    public ArrayList <Archivo> Archivos;
+    public ArrayList <Carpeta> Carpetas = new ArrayList<>();
+    public ArrayList <Archivo> Archivos = new ArrayList<>();
 
     public Carpeta() {
     }

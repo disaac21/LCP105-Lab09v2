@@ -372,6 +372,7 @@ public class Frame extends javax.swing.JFrame {
         db.commit();
         System.out.println("fin");
         db.desconectar();
+        System.out.println("hola");
     }
     
     

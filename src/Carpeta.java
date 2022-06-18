@@ -13,11 +13,9 @@ public class Carpeta {
     public Carpeta() {
     }
 
-    public Carpeta(String Nombre, String Link, ArrayList<Carpeta> Carpetas, ArrayList<Archivo> Archivos) {
+    public Carpeta(String Nombre, String Link) {
         this.Nombre = Nombre;
         this.Link = Link;
-        this.Carpetas = Carpetas;
-        this.Archivos = Archivos;
     }
 
     public String getNombre() {

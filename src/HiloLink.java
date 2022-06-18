@@ -1,5 +1,6 @@
 
 
+import java.awt.Color;
 import javax.swing.JProgressBar;
 
 public class HiloLink extends Thread {
@@ -33,9 +34,14 @@ public class HiloLink extends Thread {
 
     @Override
     public void run() {
-
+        
+        BarraLink.setStringPainted(true);
+        
         while (true) {
             BarraLink.setString(Link);
+            //System.out.println("HOLAAAAAA");
+            BarraLink.setBackground(Color.red);
+            BarraLink.setValue(100);
             try {
                 Thread.sleep(100);
             } catch (Exception e) {

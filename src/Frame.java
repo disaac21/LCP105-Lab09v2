@@ -25,6 +25,12 @@ public class Frame extends javax.swing.JFrame {
      */
     public Frame() {
         initComponents();
+        
+//        HiloLink hl = new HiloLink(LinkProgressBar, "hola");
+//        Thread t = new Thread(hl);
+//        
+//        hl.start();
+        
     }
 
     /**
@@ -73,6 +79,11 @@ public class Frame extends javax.swing.JFrame {
         CrearCarpetaButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 CrearCarpetaButtonMouseClicked(evt);
+            }
+        });
+        CrearCarpetaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CrearCarpetaButtonActionPerformed(evt);
             }
         });
 
@@ -343,12 +354,18 @@ public class Frame extends javax.swing.JFrame {
 //        }
 //        System.out.println(Link);
 //        Carpeta file = new Carpeta(NombreCarpetaTextField.getText(), Link, Carpetas, Archivos);
+
+            hl.setLink(link);
+            hl.setBarraLink(LinkProgressBar);
+            hl.start();
+            
         } catch (SQLException ex) {
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_CrearCarpetaButtonMouseClicked
 
-    
+    HiloLink hl = new HiloLink();
+    Thread t = new Thread(hl);
     public void AgregarBaseCarpeta(Carpeta c) throws SQLException{
         
         //En la tabla de carpetas se estará
@@ -409,6 +426,10 @@ public class Frame extends javax.swing.JFrame {
     private void Checkbox_pertenece_a_carpetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Checkbox_pertenece_a_carpetaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Checkbox_pertenece_a_carpetaActionPerformed
+
+    private void CrearCarpetaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CrearCarpetaButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CrearCarpetaButtonActionPerformed
 
     
     public void AgregarBaseArchivo(Archivo a) throws SQLException{

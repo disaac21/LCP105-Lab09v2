@@ -365,7 +365,7 @@ public class Frame extends javax.swing.JFrame {
         
         
         
-        db.query.execute("INSERT INTO Archivos"
+        db.query.execute("INSERT INTO Carpetas"
                 + " (Nombre,Cantidad_de_archivos,Fecha_de_creacion)"
                 + " VALUES ('" + nombre + "', '"  + cant + "', '" + fecha + "')");
         //+ " VALUES ('" + c + "', '" + n + "')");

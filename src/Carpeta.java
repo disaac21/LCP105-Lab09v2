@@ -1,12 +1,15 @@
 
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Carpeta {
     
     //Tendrán un nombre, un link, una lista de archivos y carpetas
+    //Empty
     public String Nombre;
     public String Link;
+    public Date Fecha;
     public ArrayList <Carpeta> Carpetas = new ArrayList<>();
     public ArrayList <Archivo> Archivos = new ArrayList<>();
 
@@ -16,6 +19,7 @@ public class Carpeta {
     public Carpeta(String Nombre, String Link) {
         this.Nombre = Nombre;
         this.Link = Link;
+        Fecha = new Date();
     }
 
     public String getNombre() {

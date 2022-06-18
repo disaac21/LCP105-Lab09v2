@@ -65,7 +65,8 @@ public class HiloDownload {
         
         while (start) {            
             int cont = PesoArchivo / 10;
-            
+            BarraCarpeta.setValue(ArchivosCarpeta);
+            //Trying
             try {
                 Thread.sleep(cont*1000);
             } catch (Exception e) {

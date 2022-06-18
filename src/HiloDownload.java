@@ -14,12 +14,12 @@ public class HiloDownload {
     public HiloDownload() {
     }
 
-    public HiloDownload(JProgressBar BarraArchivo, JProgressBar BarraCarpeta, int PesoArchivo, int ArchivosCarpeta, boolean start) {
+    public HiloDownload(JProgressBar BarraArchivo, JProgressBar BarraCarpeta, int PesoArchivo, int ArchivosCarpeta) {
         this.BarraArchivo = BarraArchivo;
         this.BarraCarpeta = BarraCarpeta;
         this.PesoArchivo = PesoArchivo;
         this.ArchivosCarpeta = ArchivosCarpeta;
-        this.start = start;
+        this.start = false;
     }
 
     public JProgressBar getBarraArchivo() {

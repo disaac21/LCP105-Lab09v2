@@ -2,10 +2,12 @@
 import database.Dba;
 import static java.lang.Math.random;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -57,6 +59,8 @@ public class Frame extends javax.swing.JFrame {
         CrearArchivoButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         Checkbox_pertenece_a_carpeta = new javax.swing.JCheckBox();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        Descargar = new javax.swing.JMenuItem();
         LinkProgressBar = new javax.swing.JProgressBar();
         ListScrollPane = new javax.swing.JScrollPane();
         List = new javax.swing.JList<>();
@@ -196,12 +200,25 @@ public class Frame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        Descargar.setText("Descargar");
+        Descargar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DescargarMouseClicked(evt);
+            }
+        });
+        jPopupMenu1.add(Descargar);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         List.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "testing" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
+        });
+        List.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ListMouseClicked(evt);
+            }
         });
         ListScrollPane.setViewportView(List);
 
@@ -342,6 +359,14 @@ public class Frame extends javax.swing.JFrame {
             String link = CrearLink();
             
             Carpeta carpeta = new Carpeta(nombre, link);
+            carpetas.add(carpeta);
+            
+            DefaultListModel modelo = new DefaultListModel();
+            
+            modelo.addAll(carpetas);
+            modelo.addAll(archivos);
+            
+            List.setModel(modelo);
             
             AgregarBaseCarpeta(carpeta);
             
@@ -364,6 +389,8 @@ public class Frame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CrearCarpetaButtonMouseClicked
 
+    ArrayList <Carpeta> carpetas = new ArrayList();
+    
     HiloLink hl = new HiloLink();
     Thread t = new Thread(hl);
     public void AgregarBaseCarpeta(Carpeta c) throws SQLException{
@@ -417,12 +444,21 @@ public class Frame extends javax.swing.JFrame {
             
             Archivo archivo = new Archivo(nombre, link, extension, tamano, fechacreacion, pertenece);
             
+            archivos.add(archivo);
+            
+            DefaultListModel modelo = new DefaultListModel();
+            
+            modelo.addAll(carpetas);
+            modelo.addAll(archivos);
+            
+            List.setModel(modelo);
+            
             AgregarBaseArchivo(archivo);
         } catch (SQLException ex) {
             Logger.getLogger(Frame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_CrearArchivoButtonMouseClicked
-
+    ArrayList <Archivo> archivos = new ArrayList();
     private void Checkbox_pertenece_a_carpetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Checkbox_pertenece_a_carpetaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Checkbox_pertenece_a_carpetaActionPerformed
@@ -431,7 +467,33 @@ public class Frame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_CrearCarpetaButtonActionPerformed
 
-    
+    private void ListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ListMouseClicked
+        if (evt.isMetaDown()) {
+            jPopupMenu1.pack();
+            jPopupMenu1.setVisible(true);
+        }
+    }//GEN-LAST:event_ListMouseClicked
+
+    private void DescargarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DescargarMouseClicked
+        hd.setBarraArchivo(jProgressBar1);
+        hd.setBarraCarpeta(jProgressBar2);
+        
+        int index = List.getSelectedIndex();
+        
+        DefaultListModel modelo = new DefaultListModel();
+        modelo = (DefaultListModel)List.getModel();
+        
+        if (modelo.get(index) instanceof Archivo) {
+            hd.setPesoArchivo(100);
+        }else{
+            hd.setPesoArchivo(100);
+        }
+        
+        hd.setStart(true);
+    }//GEN-LAST:event_DescargarMouseClicked
+
+    //boolean start = false;
+    HiloDownload hd = new HiloDownload();
     public void AgregarBaseArchivo(Archivo a) throws SQLException{
         
         //En la tabla de archivos, se almacenará: Nombre de
@@ -515,6 +577,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JDialog CrearArchivoFrame;
     private javax.swing.JButton CrearCarpetaButton;
     private javax.swing.JDialog CrearCarpetaFrame;
+    private javax.swing.JMenuItem Descargar;
     private javax.swing.JMenuItem Destacados;
     private javax.swing.JComboBox<String> ExtensionComboBox;
     private javax.swing.JLabel ExtensionLabel;
@@ -534,6 +597,7 @@ public class Frame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JProgressBar jProgressBar2;
     // End of variables declaration//GEN-END:variables

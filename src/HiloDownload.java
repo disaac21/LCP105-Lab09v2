@@ -1,5 +1,6 @@
 
 
+import javax.swing.JOptionPane;
 import javax.swing.JProgressBar;
 
 public class HiloDownload {
@@ -58,21 +59,30 @@ public class HiloDownload {
     }
 
     public void setStart(boolean start) {
-        this.start = start;
+        this.start = true;
     }
     
-    public void run(){
-        
-        while (start) {            
-            int cont = PesoArchivo / 10;
-            BarraCarpeta.setValue(ArchivosCarpeta);
-            //Trying
+    public void run() {
+        int cont = PesoArchivo / 10;
+        BarraCarpeta.setMaximum(ArchivosCarpeta);
+        BarraArchivo.setMaximum(cont);
+        while (start) {
+            BarraArchivo.setValue(BarraArchivo.getValue()+1);
+            if (BarraArchivo.getValue() == BarraArchivo.getMaximum()) {
+                BarraCarpeta.setValue(BarraCarpeta.getValue()+1);
+                if (BarraCarpeta.getValue() == BarraCarpeta.getMaximum() && BarraArchivo.getValue() == BarraArchivo.getMaximum()) {
+                    JOptionPane.showMessageDialog(null, "Fin de la Descarga", "Descarga", JOptionPane.PLAIN_MESSAGE);
+                    BarraCarpeta.setValue(0);
+                    BarraArchivo.setValue(0);
+                    start = false;
+                }
+            }
             try {
-                Thread.sleep(cont*1000);
+                Thread.sleep(cont * 1000);
             } catch (Exception e) {
             }
         }
-        
+
     }
     
 }

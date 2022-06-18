@@ -54,6 +54,14 @@ public class Carpeta {
         this.Archivos = Archivos;
     }
 
+    public Date getFecha() {
+        return Fecha;
+    }
+
+    public void setFecha(Date Fecha) {
+        this.Fecha = Fecha;
+    }
+    
     @Override
     public String toString() {
         return "Carpeta{" + "Nombre=" + Nombre + '}';
